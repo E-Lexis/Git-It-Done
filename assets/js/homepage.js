@@ -21,9 +21,9 @@ userFormEl.addEventListener("submit", formSubmit);
 var getUserRepos = function (user) {
     var apiURL = "https://api.github.com/users/" + user + "/repos";
     fetch(apiURL)
-        .then(function (reponse) {
+        .then(function (response) {
             if (response.ok) {
-                reponse.json().then(function (data) {
+                response.json().then(function (data) {
                     displayRepos(data, user);
                 });
             } else {
@@ -31,7 +31,7 @@ var getUserRepos = function (user) {
             }
         })
         .catch(function (error) {
-        alert("Unable to connect to GitHub");+
+        alert("Unable to connect to GitHub");
     })
 };
 
@@ -47,8 +47,9 @@ var displayRepos = function (repos, searchTerm) {
     for (var i = 0; i < repos.length; i++) {
         var repoName = repos[i].owner.login + "/" + repos[i].name;
 
-        var repoEl = document.createElement("div");
-        repoEl.classList = "list-item flex-row justify-space-between align-center"
+        var repoEl = document.createElement("a");
+        repoEl.classList = "list-item flex-row justify-space-between align-center";
+        repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
 
         var titleEl = document.createElement("span");
         titleEl.textContent = repoName;
